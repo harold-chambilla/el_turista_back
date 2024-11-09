@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241109051139 extends AbstractMigration
+final class Version20241109072436 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,7 +25,8 @@ final class Version20241109051139 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_F45995BA25C78794 ON habitacion (propiedad_id)');
         $this->addSql('CREATE TABLE nota_servicio (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, reserva_id INTEGER NOT NULL, fecha_emision DATE NOT NULL, detalles_servicio CLOB NOT NULL, estado VARCHAR(255) NOT NULL, fecha_realizacion DATE NOT NULL, eliminado BOOLEAN NOT NULL, CONSTRAINT FK_D2368ECED67139E8 FOREIGN KEY (reserva_id) REFERENCES reserva (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_D2368ECED67139E8 ON nota_servicio (reserva_id)');
-        $this->addSql('CREATE TABLE propiedad (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nombre VARCHAR(255) NOT NULL, direccion VARCHAR(255) NOT NULL, ciudad VARCHAR(255) NOT NULL, descripcion CLOB NOT NULL, tipo VARCHAR(255) NOT NULL, capacidad INTEGER NOT NULL, amenidades CLOB NOT NULL, eliminado BOOLEAN NOT NULL)');
+        $this->addSql('CREATE TABLE propiedad (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, usuario_id INTEGER NOT NULL, nombre VARCHAR(255) NOT NULL, direccion VARCHAR(255) NOT NULL, ciudad VARCHAR(255) NOT NULL, descripcion CLOB NOT NULL, tipo VARCHAR(255) NOT NULL, capacidad INTEGER NOT NULL, amenidades CLOB NOT NULL, eliminado BOOLEAN NOT NULL, CONSTRAINT FK_6F3EFE0DDB38439E FOREIGN KEY (usuario_id) REFERENCES usuario (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE INDEX IDX_6F3EFE0DDB38439E ON propiedad (usuario_id)');
         $this->addSql('CREATE TABLE reserva (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, cliente_id INTEGER NOT NULL, habitacion_id INTEGER NOT NULL, fecha_entrada DATE NOT NULL, fecha_salida DATE NOT NULL, estado VARCHAR(255) NOT NULL, numero_personas INTEGER NOT NULL, eliminado BOOLEAN NOT NULL, CONSTRAINT FK_188D2E3BDE734E51 FOREIGN KEY (cliente_id) REFERENCES cliente (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_188D2E3BB009290D FOREIGN KEY (habitacion_id) REFERENCES habitacion (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
         $this->addSql('CREATE INDEX IDX_188D2E3BDE734E51 ON reserva (cliente_id)');
         $this->addSql('CREATE INDEX IDX_188D2E3BB009290D ON reserva (habitacion_id)');
