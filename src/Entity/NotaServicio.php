@@ -2,11 +2,36 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\NotaServicioRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NotaServicioRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/notas'
+        ),
+        new Post(
+            uriTemplate: '/notas'
+        ),
+        new Get(
+            uriTemplate: '/notas/{id}'
+        ),
+        new Delete(
+            uriTemplate: '/notas/{id}'
+        ),
+        new Patch(
+            uriTemplate: '/notas/{id}'
+        ),
+    ]
+)]
 class NotaServicio
 {
     #[ORM\Id]
